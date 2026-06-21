@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: springboot-nyano
+  datasource:
+    url: jdbc:mysql://localhost:3306/shoptonyjava
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    # Specifies the database platform dialect
+    database-platform: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      # Options: update, create, create-drop, validate, none
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
