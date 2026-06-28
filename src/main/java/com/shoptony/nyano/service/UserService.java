@@ -12,5 +12,7 @@ public interface UserService {
 
     UserEntity getUserByUserEmail(String userEmail);
 
+    boolean deleteUserByUserEmail(String userEmail);
+
     List<UserEntity> getUserByUserNameAndUserEmail(String userName, String userEmail);
 }

@@ -35,7 +35,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public boolean deleteUserByUserEmail(String userEmail) {
+         var hasDeleted = userRepository.deleteByUserEmail(userEmail);
+         return hasDeleted > 0;
+    }
+
+    @Override
     public List<UserEntity> getUserByUserNameAndUserEmail(String userName, String userEmail) {
         return userRepository.findByUserNameOrUserEmail(userName, userEmail);
     }
+
+
 }
