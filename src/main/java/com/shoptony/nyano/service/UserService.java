@@ -1,8 +1,16 @@
 package com.shoptony.nyano.service;
 
-import org.springframework.stereotype.Service;
+import com.shoptony.nyano.entity.user.UserEntity;
+import java.util.List;
 
-@Service
 public interface UserService {
+    UserEntity createUser(UserEntity user);
 
+    List<UserEntity> getAllUsers();
+
+    UserEntity getUserByUserName(String userName);
+
+    UserEntity getUserByUserEmail(String userEmail);
+
+    List<UserEntity> getUserByUserNameAndUserEmail(String userName, String userEmail);
 }
