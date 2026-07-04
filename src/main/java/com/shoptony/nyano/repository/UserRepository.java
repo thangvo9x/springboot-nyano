@@ -39,9 +39,28 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     List<UserEntity> findByUserNameStartingWith(String userName);
 
-    /*
+    /* native query
     * GET total users
     * */
     @Query(value = "SELECT COUNT(id) from java_user", nativeQuery = true)
     long getTotalUser();
+
+    /* RAW JPQL
+     * GET User By Id
+     * */
+    @Query(value = "SELECT u FROM UserEntity WHERE u.userName = ?1 AND u.userEmail = ?2")
+    List<UserEntity> getUserEntityById(String userName, String userEmail);
+
+    @Query(value = "SELECT u FROM UserEntity uWHERE u.userName = :userName AND u.userEmail = :userEmail")
+    List<UserEntity> getUserEntityByTwo(@Param("userName") String userName, @Param("userEmail") String userEmail);
+
+    /*
+     * UPDATE User By Id
+     * */
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE UserEntity u SET u.userEmail = :userName")
+    int updateUserName(@Param("userName") String userName);
+
+
 }
