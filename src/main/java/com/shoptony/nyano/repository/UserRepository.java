@@ -2,6 +2,8 @@ package com.shoptony.nyano.repository;
 
 
 import com.shoptony.nyano.entity.user.UserEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -17,11 +19,15 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
+    // pageable
+    Page<UserEntity> findByUserNameContaining(String userName, Pageable pageable);
+
+
     // find userName and userEmail
 
     List<UserEntity> findByUserNameOrUserEmail(String userName, String userEmail);
 
-    UserEntity findByUserName(String userName);
+//    UserEntity findByUserName(String userName);
 
     UserEntity findByUserEmail(String userEmail);
 
@@ -48,10 +54,10 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
     /* RAW JPQL
      * GET User By Id
      * */
-    @Query(value = "SELECT u FROM UserEntity WHERE u.userName = ?1 AND u.userEmail = ?2")
+    @Query(value = "SELECT u FROM UserEntity u WHERE u.userName = ?1 AND u.userEmail = ?2")
     List<UserEntity> getUserEntityById(String userName, String userEmail);
 
-    @Query(value = "SELECT u FROM UserEntity uWHERE u.userName = :userName AND u.userEmail = :userEmail")
+    @Query(value = "SELECT u FROM UserEntity u WHERE u.userName = :userName AND u.userEmail = :userEmail")
     List<UserEntity> getUserEntityByTwo(@Param("userName") String userName, @Param("userEmail") String userEmail);
 
     /*
