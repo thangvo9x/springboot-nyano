@@ -1,9 +1,10 @@
-package com.shoptony.nyano.entity.product;
+package com.shoptony.nyano.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Data
 @Entity
@@ -20,12 +21,15 @@ public class ProductEntity {
     @Column(nullable = false, columnDefinition = "varchar(255) ")
     private BigDecimal productPrice;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) ")
+    @Column(columnDefinition = "varchar(255) ")
     private String productDescription;
 
-    @Column(nullable = false, columnDefinition = "varchar(255) ")
-    private String productImage;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "java_product_order",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "order_id")
+    )
 
-    @Column(nullable = false, columnDefinition = "varchar(255) ")
-    private String productCategory;
+    private List<OrderEntity> orderList;
 }
