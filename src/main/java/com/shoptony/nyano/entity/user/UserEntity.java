@@ -3,6 +3,7 @@ package com.shoptony.nyano.entity.user;
 import com.shoptony.nyano.entity.feed.FeedEntity;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -29,7 +30,12 @@ public class UserEntity {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.LAZY) // lazy loaded
+    @ToString.Exclude
     private List<FeedEntity> feedList;
 
     // one -> one
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cccd_id")
+    private CCCDEntity cccd;
 }

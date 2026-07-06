@@ -13,7 +13,7 @@ import org.springframework.test.annotation.Rollback;
 import java.util.List;
 
 @SpringBootTest
-public class UserTest {
+public class UserFeedTest {
 
     @Autowired
     private UserRepository userRepository;
@@ -60,6 +60,16 @@ public class UserTest {
 
         userRepository.save(user);
 //        feedRepository.save(feed);
+    }
+
+    @Test
+    @Transactional
+    void selectOneToMany() {
+        UserEntity user = userRepository.findById(2L).orElseThrow();
+        System.out.println(user);
+        System.out.println(user.getFeedList());
+
+
     }
 
 }
